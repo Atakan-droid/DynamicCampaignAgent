@@ -1,0 +1,114 @@
+{
+    "users": [
+        {
+            "id": "user1",
+            "name": "Alice Smith",
+            "email": "alice@example.com"
+        },
+        {
+            "id": "user2",
+            "name": "Bob Johnson",
+            "email": "bob@example.com"
+        },
+        {
+            "id": "user3",
+            "name": "Charlie Lee",
+            "email": "charlie@example.com"
+        }
+    ],
+    "campaigns": [
+        {
+            "id": 1,
+            "name": "Spring Sale",
+            "isActive": true,
+            "rule": "Cart value > $500",
+            "effect": "10% discount coupon"
+        },
+        {
+            "id": 2,
+            "name": "Summer Bonanza",
+            "isActive": true,
+            "rule": "Buy 3 snacks, get 1 cola free",
+            "effect": "Free cola"
+        },
+        {
+            "id": 3,
+            "name": "Winter Clearance",
+            "isActive": false,
+            "rule": "Cart value > $1000",
+            "effect": "20% discount coupon"
+        },
+        {
+            "id": 4,
+            "name": "Gadget Weekend",
+            "isActive": true,
+            "rule": "Buy any 2 electronics, get 50% off on headphones",
+            "effect": "50% off headphones"
+        },
+        {
+            "id": 5,
+            "name": "Back to School",
+            "isActive": true,
+            "rule": "Buy 5 or more notebooks",
+            "effect": "Free pen set"
+        },
+        {
+            "id": 6,
+            "name": "Mega Grocery Deal",
+            "isActive": true,
+            "rule": "Cart contains at least 10 items",
+            "effect": "$20 grocery voucher"
+        },
+        {
+            "id": 7,
+            "name": "Fitness Frenzy",
+            "isActive": true,
+            "rule": "Buy a fitness tracker and any sportswear",
+            "effect": "15% off next purchase"
+        },
+        {
+            "id": 8,
+            "name": "Holiday Toys",
+            "isActive": true,
+            "rule": "Buy 2 toys, get 1 free",
+            "effect": "Free toy (lowest price)"
+        },
+        {
+            "id": 9,
+            "name": "Luxury Bonus",
+            "isActive": true,
+            "rule": "Cart value > $2000",
+            "effect": "$200 luxury gift card"
+        },
+        {
+            "id": 10,
+            "name": "Weekend Flash",
+            "isActive": true,
+            "rule": "Buy any item with SKU starting 'FLASH'",
+            "effect": "Instant 5% off that item"
+        }
+    ],
+    "transactions": [
+        {
+            "id": 1,
+            "userId": "user1",
+            "campaignId": 1,
+            "timestamp": "2024-05-01T10:00:00Z",
+            "basketValue": 120.50
+        },
+        {
+            "id": 2,
+            "userId": "user2",
+            "campaignId": 2,
+            "timestamp": "2024-05-02T11:30:00Z",
+            "basketValue": 75.00
+        },
+        {
+            "id": 3,
+            "userId": "user3",
+            "campaignId": 1,
+            "timestamp": "2024-05-03T09:15:00Z",
+            "basketValue": 200.00
+        }
+    ]
+}
