@@ -4,7 +4,6 @@ D:\Projects\DOTNET\Campaign_AI_Agent\CampaignAgent\WebApi\obj\Debug\net8.0\WebAp
 D:\Projects\DOTNET\Campaign_AI_Agent\CampaignAgent\WebApi\obj\Debug\net8.0\WebApi.AssemblyInfo.cs
 D:\Projects\DOTNET\Campaign_AI_Agent\CampaignAgent\WebApi\obj\Debug\net8.0\WebApi.csproj.CoreCompileInputs.cache
 D:\Projects\DOTNET\Campaign_AI_Agent\CampaignAgent\WebApi\obj\Debug\net8.0\WebApi.MvcApplicationPartsAssemblyInfo.cache
-D:\Projects\DOTNET\Campaign_AI_Agent\CampaignAgent\WebApi\obj\Debug\net8.0\WebApi.MvcApplicationPartsAssemblyInfo.cs
 D:\Projects\DOTNET\Campaign_AI_Agent\CampaignAgent\WebApi\bin\Debug\net8.0\appsettings.Development.json
 D:\Projects\DOTNET\Campaign_AI_Agent\CampaignAgent\WebApi\bin\Debug\net8.0\appsettings.json
 D:\Projects\DOTNET\Campaign_AI_Agent\CampaignAgent\WebApi\bin\Debug\net8.0\WebApi.staticwebassets.endpoints.json
