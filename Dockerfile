@@ -11,7 +11,8 @@ RUN dotnet restore
 
 # Copy everything else and build
 COPY . .
-RUN dotnet publish WebApi/WebApi.csproj -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish WebApi/WebApi.csproj -c Release -o /app/publish /p:UseAppHost=false \
+    && cp Data/MockData.json /app/publish/MockData.json
 
 # Use the official ASP.NET runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
