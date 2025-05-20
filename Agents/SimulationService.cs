@@ -1,6 +1,7 @@
 using Data;
 using System;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Agents
 {
@@ -21,6 +22,16 @@ namespace Agents
                 Timestamp = DateTime.UtcNow
             };
             _context.CampaignSessions.Add(session);
+
+            // Update user profile stats
+            var user = await _context.UserProfiles.FirstOrDefaultAsync(u => u.Id == userId);
+            if (user != null)
+            {
+                user.TotalSpent += basketValue;
+                user.PurchaseCount += 1;
+                user.LastPurchase = session.Timestamp;
+            }
+
             await _context.SaveChangesAsync();
         }
     }
