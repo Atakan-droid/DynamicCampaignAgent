@@ -161,5 +161,5 @@ D:\Projects\DOTNET\Campaign_AI_Agent\CampaignAgent\WebApi\obj\Debug\net8.0\refin
 D:\Projects\DOTNET\Campaign_AI_Agent\CampaignAgent\WebApi\obj\Debug\net8.0\WebApi.pdb
 D:\Projects\DOTNET\Campaign_AI_Agent\CampaignAgent\WebApi\obj\Debug\net8.0\WebApi.genruntimeconfig.cache
 D:\Projects\DOTNET\Campaign_AI_Agent\CampaignAgent\WebApi\obj\Debug\net8.0\ref\WebApi.dll
-D:\Projects\DOTNET\Campaign_AI_Agent\CampaignAgent\WebApi\bin\Debug\net8.0\MockData.json
 D:\Projects\DOTNET\Campaign_AI_Agent\CampaignAgent\WebApi\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+D:\Projects\DOTNET\Campaign_AI_Agent\CampaignAgent\WebApi\obj\Debug\net8.0\WebApi.sourcelink.json

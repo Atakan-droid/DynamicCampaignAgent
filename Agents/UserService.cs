@@ -34,5 +34,9 @@ namespace Agents
             user.Summary = summary;
             await _context.SaveChangesAsync();
         }
+        public async Task<List<UserProfile>> GetAllUserProfilesAsync()
+        {
+            return await _context.UserProfiles.ToListAsync();
+        }
     }
 } 

@@ -12,4 +12,4 @@ D:\Projects\DOTNET\Campaign_AI_Agent\CampaignAgent\Data\obj\Debug\net8.0\refint\
 D:\Projects\DOTNET\Campaign_AI_Agent\CampaignAgent\Data\obj\Debug\net8.0\Data.pdb
 D:\Projects\DOTNET\Campaign_AI_Agent\CampaignAgent\Data\obj\Debug\net8.0\Data.genruntimeconfig.cache
 D:\Projects\DOTNET\Campaign_AI_Agent\CampaignAgent\Data\obj\Debug\net8.0\ref\Data.dll
-D:\Projects\DOTNET\Campaign_AI_Agent\CampaignAgent\Data\bin\Debug\net8.0\MockData.json
+D:\Projects\DOTNET\Campaign_AI_Agent\CampaignAgent\Data\obj\Debug\net8.0\Data.sourcelink.json

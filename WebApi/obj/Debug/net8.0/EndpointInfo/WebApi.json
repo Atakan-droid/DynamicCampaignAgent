@@ -97,6 +97,18 @@
           }
         }
       }
+    },
+    "/api/agent/users": {
+      "get": {
+        "tags": [
+          "Agent"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
     }
   },
   "components": {

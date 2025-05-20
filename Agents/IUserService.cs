@@ -9,5 +9,6 @@ namespace Agents
         Task<UserProfile?> GetUserProfileAsync(string userId);
         Task<List<CampaignSession>> GetUserTransactionsAsync(string userId);
         Task UpdateUserProfileSummaryAsync(string userId);
+        Task<List<UserProfile>> GetAllUserProfilesAsync();
     }
 } 
