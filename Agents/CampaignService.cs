@@ -2,6 +2,7 @@ using Data;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Data.Enumerations;
 
 namespace Agents
 {
@@ -14,7 +15,7 @@ namespace Agents
         }
         public async Task<List<Campaign>> GetActiveCampaignsAsync()
         {
-            return await _context.Campaigns.Where(c => c.IsActive).ToListAsync();
+            return await _context.Campaigns.Where(c => c.Status == CampaignStatusTypes.Active).ToListAsync();
         }
 
         public async Task<List<Campaign>> GetCampaignsAsync()
@@ -34,7 +35,7 @@ namespace Agents
             var existing = await _context.Campaigns.FirstOrDefaultAsync(c => c.Id == campaign.Id);
             if (existing == null) return null;
             existing.Name = campaign.Name;
-            existing.IsActive = campaign.IsActive;
+            existing.Status = campaign.Status;
             existing.Rule = campaign.Rule;
             existing.Effect = campaign.Effect;
             existing.TotalBudget = campaign.TotalBudget;

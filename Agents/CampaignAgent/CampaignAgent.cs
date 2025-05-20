@@ -2,6 +2,7 @@ using Microsoft.SemanticKernel;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.Generic;
+using Data.Enumerations;
 
 namespace Agents.CampaignAgent
 {
@@ -36,7 +37,7 @@ namespace Agents.CampaignAgent
             var cartItemsText = string.Join("\n", cartItems.Select(item =>
                 $"- {item.Name} (SKU: {item.SKU}, Qty: {item.Quantity}, Price: ${item.Price})"));
 
-            var campaignDescriptions = string.Join("\n", campaigns.Select(c => $"- {c.Name}: Rule: {c.Rule}, Effect: {c.Effect} (Status: {(c.IsActive ? "Active" : "Inactive")})"));
+            var campaignDescriptions = string.Join("\n", campaigns.Select(c => $"- {c.Name}: Rule: {c.Rule}, Effect: {c.Effect} (Status: {c.Status})"));
 
             var prompt = $@"
 User Profile:
@@ -71,7 +72,7 @@ Respond in a single, concise sentence describing exactly what the user will gain
             var cartItemsText = string.Join("\n", cartItems.Select(item =>
                 $"- {item.Name} (SKU: {item.SKU}, Qty: {item.Quantity}, Price: ${item.Price})"));
 
-            var campaignDescriptions = string.Join("\n", campaigns.Select(c => $"- {c.Name}: Rule: {c.Rule}, Effect: {c.Effect} (Status: {(c.IsActive ? "Active" : "Inactive")})"));
+            var campaignDescriptions = string.Join("\n", campaigns.Select(c => $"- {c.Name}: Rule: {c.Rule}, Effect: {c.Effect} (Status: {c.Status})"));
 
             var prompt = $@"
 User Profile:

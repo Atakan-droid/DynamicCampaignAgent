@@ -1,5 +1,7 @@
 namespace Data
 {
+    using Data.Enumerations;
+
     public class Campaign
     {
         public int Id { get; set; }
@@ -10,5 +12,6 @@ namespace Data
         public decimal TotalBudget { get; set; }
         public decimal MaxBudgetPerUser { get; set; }
         public string CampaignTarget { get; set; } = string.Empty;
+        public CampaignStatusTypes Status { get; set; }
     }
 } 

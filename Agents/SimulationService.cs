@@ -2,6 +2,8 @@ using Data;
 using System;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Agents
 {
@@ -33,6 +35,14 @@ namespace Agents
             }
 
             await _context.SaveChangesAsync();
+        }
+        public async Task<List<CampaignSession>> GetCampaignSessionsAsync()
+        {
+            return await _context.CampaignSessions.ToListAsync();
+        }
+        public async Task<List<CampaignSession>> GetCampaignSessionsByUserAsync(string userId)
+        {
+            return await _context.CampaignSessions.Where(s => s.UserId == userId).ToListAsync();
         }
     }
 } 
