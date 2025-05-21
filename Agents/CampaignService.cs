@@ -45,7 +45,7 @@ namespace Agents
             return existing;
         }
 
-        public async Task<bool> DeleteCampaignAsync(string id)
+        public async Task<bool> DeleteCampaignAsync(int id)
         {
             var campaign = await _context.Campaigns.FindAsync(id);
             if (campaign == null) return false;

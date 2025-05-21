@@ -41,10 +41,10 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteCampaign(string id)
+        public async Task<ActionResult> DeleteCampaign(int id)
         {
             var result = await _campaignService.DeleteCampaignAsync(id);
-            if (result == null) return NotFound();
+            if (!result) return NotFound();
             return NoContent();
         }
 
