@@ -44,5 +44,14 @@ namespace Agents
             await _context.SaveChangesAsync();
             return existing;
         }
+
+        public async Task<bool> DeleteCampaignAsync(string id)
+        {
+            var campaign = await _context.Campaigns.FindAsync(id);
+            if (campaign == null) return false;
+            _context.Campaigns.Remove(campaign);
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 } 

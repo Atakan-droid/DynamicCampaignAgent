@@ -40,6 +40,14 @@ namespace WebApi.Controllers
             return Ok(result);
         }
 
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteCampaign(string id)
+        {
+            var result = await _campaignService.DeleteCampaignAsync(id);
+            if (result == null) return NotFound();
+            return NoContent();
+        }
+
         [HttpGet("sessions")]
         public async Task<ActionResult<List<CampaignSession>>> GetCampaignSessions([FromQuery] string? userId = null)
         {
