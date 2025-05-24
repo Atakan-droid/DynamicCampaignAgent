@@ -11,20 +11,16 @@ namespace Data
         public DbSet<UserProfile> UserProfiles => Set<UserProfile>();
         public DbSet<Campaign> Campaigns => Set<Campaign>();
         public DbSet<CampaignSession> CampaignSessions => Set<CampaignSession>();
+        public DbSet<CartItem> CartItems => Set<CartItem>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            // Seed mock users with Guid.NewGuid() for Ids
-            var user1Id = Guid.NewGuid().ToString();
-            var user2Id = Guid.NewGuid().ToString();
-            var user3Id = Guid.NewGuid().ToString();
-
             modelBuilder.Entity<UserProfile>().HasData(
-                new UserProfile { Id = user1Id, Name = "Alice Smith", Email = "alice@example.com"},
-                new UserProfile { Id = user2Id, Name = "Bob Johnson", Email = "bob@example.com"},
-                new UserProfile { Id = user3Id, Name = "Charlie Lee", Email = "charlie@example.com"}
+                new UserProfile { Id = "f4079fc8-cb2d-4a63-8698-6beba78d843e", Name = "Alice Smith", Email = "alice@example.com"},
+                new UserProfile { Id = "855092ce-f114-49ab-b664-02c017a3ff74", Name = "Bob Johnson", Email = "bob@example.com"},
+                new UserProfile { Id = "b10b003f-fe53-435d-9bb4-523bebe92906", Name = "Charlie Lee", Email = "charlie@example.com"}
             );
 
             modelBuilder.Entity<Campaign>().HasData(
@@ -38,6 +34,12 @@ namespace Data
                 new Campaign { Id = 8, Name = "Holiday Toys", Status = CampaignStatusTypes.Active, Rule = "Buy 2 toys, get 1 free", Effect = "Free toy (lowest price)", TotalBudget = 9000, MaxBudgetPerUser = 400, CampaignTarget = "Holiday toy sales" },
                 new Campaign { Id = 9, Name = "Luxury Bonus", Status = CampaignStatusTypes.Active, Rule = "Cart value > $2000", Effect = "$200 luxury gift card", TotalBudget = 20000, MaxBudgetPerUser = 2000, CampaignTarget = "Luxury segment growth" },
                 new Campaign { Id = 10, Name = "Weekend Flash", Status = CampaignStatusTypes.Active, Rule = "Buy any item with SKU starting 'FLASH'", Effect = "Instant 5% off that item", TotalBudget = 3000, MaxBudgetPerUser = 150, CampaignTarget = "Promote flash deals" }
+            );
+
+            modelBuilder.Entity<CartItem>().HasData(
+                new CartItem { Id = Guid.Parse("bd3e8919-bbd2-4466-a9c4-5c9a30f3f845"), Name = "Product 1", SKU = "SKU123", Price = 100 },
+                new CartItem { Id = Guid.Parse("ca02e081-56bc-414d-b7f9-f08bb236e19b"), Name = "Product 2", SKU = "SKU456", Price = 200 },
+                new CartItem { Id = Guid.Parse("9034188e-76ec-44a8-8ae6-422c18f51365"), Name = "Product 3", SKU = "SKU789", Price = 300 }
             );
         }
     }

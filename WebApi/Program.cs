@@ -15,6 +15,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICampaignService, CampaignService>();
 builder.Services.AddScoped<ISimulationService, SimulationService>();
+builder.Services.AddScoped<ICartItemService, CartItemService>();
 
 // Register Semantic Kernel with OpenAI
 builder.Services.AddSingleton(sp =>

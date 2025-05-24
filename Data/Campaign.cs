@@ -14,4 +14,4 @@ namespace Data
         public string CampaignTarget { get; set; } = string.Empty;
         public CampaignStatusTypes Status { get; set; }
     }
-} 
+}

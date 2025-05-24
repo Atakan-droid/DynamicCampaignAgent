@@ -3,6 +3,7 @@ using Agents.UserAgent;
 using Microsoft.AspNetCore.Mvc;
 using Agents;
 using Data;
+using Agents.Models;
 
 namespace WebApi.Controllers
 {
@@ -31,14 +32,14 @@ namespace WebApi.Controllers
         [HttpPost("offer")]
         public async Task<IActionResult> GetOffer([FromBody] OfferRequest request)
         {
-            var result = await _campaignAgent.OfferAsync(request.UserId, request.CartItems);
+            var result = await _campaignAgent.OfferAsync(request);
             return Ok(result);
         }
 
         [HttpPost("check")]
-        public async Task<IActionResult> CheckAndOffer([FromBody] CheckRequest request)
+        public async Task<IActionResult> CheckAndOffer([FromBody] CheckCampaignRequest request)
         {
-            var result = await _campaignAgent.CheckCampaignsAsync(request.UserId, request.CartItems);
+            var result = await _campaignAgent.CheckCampaignsAsync(request);
             return Ok(result);
         }
 
@@ -84,17 +85,4 @@ namespace WebApi.Controllers
     {
         public string UserId { get; set; } = string.Empty;
     }
-
-    public class OfferRequest
-    {
-        public string UserId { get; set; } = string.Empty;
-        public List<CartItem> CartItems { get; set; } = new();
-    }
-
-    public class CheckRequest
-    {
-        public string UserId { get; set; } = string.Empty;
-        public List<CartItem> CartItems { get; set; } = new();
-    }
-
-} 
+}

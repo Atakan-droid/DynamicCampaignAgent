@@ -226,6 +226,10 @@
               "target": "Package",
               "version": "[8.0.16, )"
             },
+            "Microsoft.EntityFrameworkCore.SQLite": {
+              "target": "Package",
+              "version": "[9.0.5, )"
+            },
             "Microsoft.SemanticKernel": {
               "target": "Package",
               "version": "[1.51.0, )"
