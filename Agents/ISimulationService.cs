@@ -1,13 +1,12 @@
+using Agents.Models;
 using Data;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 
 namespace Agents
 {
     public interface ISimulationService
     {
-        Task RecordCampaignSessionAsync(string userId, int campaignId, decimal basketValue);
-        Task<List<CampaignSession>> GetCampaignSessionsAsync();
-        Task<List<CampaignSession>> GetCampaignSessionsByUserAsync(string userId);
+        Task RecordSessionAsync(string userId, Guid sessionId, decimal basketValue, OfferAgentResult result);
+        Task<List<Session>> GetSessionsAsync();
+        Task<List<Session>> GetSessionsByUserAsync(string userId);
     }
-} 
+}

@@ -1,8 +1,9 @@
-using Microsoft.SemanticKernel;
+﻿using Microsoft.SemanticKernel;
 using Data.Enumerations;
 using Data;
 using Agents.Models;
 using System.Text.Json;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Agents.CampaignAgent
 {
@@ -51,17 +52,20 @@ namespace Agents.CampaignAgent
 
             var campaignDescriptions = string.Join("\n", campaigns
                 .Where(c => c.Status == CampaignStatusTypes.Active)
-                .Select(c => $"- {c.Name}: Rule: {c.Rule}, Effect: {c.Effect} (Status: {c.Status})"));
+                .Select(c => $"- {c.Name}: Rule: {c.Rule}, Effect: {c.Effect}"));
 
             var prompt = $@"
-You are a campaign-negotiation AI agent. You dynamically analyze potential campaigns for the user based on profile, history, and cart.
+You are a campaign-negotiation AI agent. You dynamically select the best loyalty offers based on user profile, transaction history, active campaigns, and current cart items. Populate the responde schema:
+- Offers: a list of CampaignOffer instances for each campaign that applies to the user's current basket only; include CampaignId, Description, CouponGiven, DiscountPercent, DiscountAmount, and ItemOffers.
+- DiscountResult: the total basket discount amount and average percentage across the basket.
+- Message: a concise summary of the combined offers.
 
 User Profile:
 - Name: {user.Name}
 - Email: {user.Email}
 
 Transaction History:
-{string.Join("\n", transactions.Select(t => $"- {t.Timestamp:yyyy-MM-dd}: Campaign {t.CampaignId}, Basket Value: ${t.BasketValue}"))}
+{string.Join("\n", transactions.Select(t => $"- {t.Timestamp:yyyy-MM-dd}: Campaigns {string.Join(",", t.TriggeredCampaigns)}, Basket Value: ${t.BasketValue}"))}
 
 Active Campaigns:
 {campaignDescriptions}
@@ -69,39 +73,39 @@ Active Campaigns:
 All Cart Items in System:
 {allItemsText}
 
-User's Current Cart:
+User's Current Basket Cart Items:
 {cartItemsText}
+
+User's Basket Total: ${request.CartItems.Sum(x => allCartItems.First(item => item.Id == x.Id).Price * x.Quantity)}
 
 Respond with a single JSON object matching this schema:
 {{
-  'CampaignId': ' < campaign - id - int > ',
-    'DiscountResult':'TotalDiscountAmount': 0.0, 'TotalDiscountPercent': 0.0',
-  'Coupon': false,
-  'CouponCode': '<code-or-empty>',
-  'Message': '<concise message>',
-  'ItemOffers': [
-     'CartItemId': '<guid>', 'DiscountPercent': 0.0, 'DiscountAmount': 0.0, 'Bonus': false, 'BonusQuantity': 0.0 
-  ]
+  'Offers': [
+    'CampaignId': < int >, 'Description': '<text>', 'CouponGiven': < bool >, 'DiscountPercent': < decimal >, 'DiscountAmount': < decimal >, 'ItemOffers': [
+        'CartItemId': '<guid>', 'DiscountPercent': < decimal >, 'DiscountAmount': < decimal >, 'Bonus': < bool >, 'BonusQuantity': < int >
+    ] 
+            
+  ],
+  'DiscountResult':  'TotalDiscountAmount': < decimal >, 'TotalDiscountPercent': < decimal > ,
+  'Message': '<concise message>'
 }}
 Do not include any extra text.";
 
-            var result = await _kernel.InvokePromptAsync(prompt);
-            var json = result.GetValue<string>() ?? "{}";
+            var promptResult = await _kernel.InvokePromptAsync(prompt);
+            var json = promptResult.GetValue<string>() ?? "{}";
             var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-            var offer = JsonSerializer.Deserialize<OfferAgentResult>(json, options)
-                        ?? new OfferAgentResult { Message = "Parsing error" };
+            var result = JsonSerializer.Deserialize<OfferAgentResult>(json, options) ?? new OfferAgentResult { Message = "Parsing error" };
 
             var basketTotal = allCartItems
                 .Where(item => request.CartItems.Any(x => x.Id == item.Id))
                 .Sum(item => item.Price * request.CartItems.First(x => x.Id == item.Id)!.Quantity);
 
-            await _simulationService.RecordCampaignSessionAsync(
-                request.UserId,
-                offer.CampaignId,
-                basketTotal
-                );
+            if (result.Offers.Any())
+            {
+                await _simulationService.RecordSessionAsync(request.UserId, Guid.NewGuid(), basketTotal, result);
+            }
 
-            return offer;
+            return result;
         }
 
         public async Task<CheckCampaignAgentResult> CheckCampaignsAsync(CheckCampaignRequest request)
@@ -122,7 +126,7 @@ Do not include any extra text.";
             var cartItemsText = string.Join("\n", basketItems.Select(item =>
             {
                 var qty = request.CartItems.First(x => x.Id == item.Id)!.Quantity;
-                return $"- {item.Name} (SKU: {item.SKU}, Qty: {qty}, Price: ${item.Price})";
+                return $"- {item.Name} (SKU: {item.SKU}, Quantity: {qty}, Price: ${item.Price})";
             }));
 
             var campaignDescriptions = string.Join("\n", campaigns
@@ -130,34 +134,49 @@ Do not include any extra text.";
                 .Select(c => $"- {c.Name}: Rule: {c.Rule}, Effect: {c.Effect} (Status: {c.Status})"));
 
             var prompt = $@"
-You are a campaign-negotiation AI agent. You dynamically analyze potential campaigns for the user based on profile, history, and cart.if you do X more spending, you qualify for campaign Y and you will gain Z
+You are a campaign-negotiation AI agent. You dynamically analyze potential campaigns for the user based on profile, history, and cart.if you do X more spending, you qualify for campaign Y and you will gain Z. 
 
 User Profile:
 - Name: {user.Name}
 - Email: {user.Email}
 
 Transaction History:
-{string.Join("\n", transactions.Select(t => $"- {t.Timestamp:yyyy-MM-dd}: Campaign {t.CampaignId}, Basket Value: ${t.BasketValue}"))}
+{string.Join("\n", transactions.Select(t => $"- {t.Timestamp:yyyy-MM-dd}: Campaigns {string.Join(",", t.TriggeredCampaigns)}, Basket Value: ${t.BasketValue}"))}
 
 Active Campaigns:
 {campaignDescriptions}
 
-All Cart Items in System:
+All Basket Items in System:
 {allItemsText}
 
-User's Current Cart:
+User's Current Basket Items:
 {cartItemsText}
 
-Respond with a single JSON object matching this schema:
+User's Basket Total: ${request.CartItems.Sum(x => allCartItems.First(item => item.Id == x.Id).Price * x.Quantity)}
+
+Respond with a single JSON object matching the CheckCampaignAgentResult schema:
 {{
-  'Offers': [
-            'CampaignId': '<int>', 'Description': '<text>', 'Coupon': false, 'DiscountPercent': 0.0, 'DiscountAmount': 0.0, 'Bonus': false, 'BonusQuantity': 0.0
+  ""AppliedOffers"": [
+    {{ ""CampaignId"": <int>, ""Description"": ""<text>"", ""CouponGiven"": <bool>, ""DiscountPercent"": <decimal>, ""DiscountAmount"": <decimal>, ""ItemOffers"": [
+        {{ ""CartItemId"": ""<guid>"", ""DiscountPercent"": <decimal>, ""DiscountAmount"": <decimal>, ""Bonus"": <bool>, ""BonusQuantity"": <int> }}
+    ] }}
   ],
-  'PotentialDiscount': 'TotalDiscountAmount': 0.0, 'TotalDiscountPercent': 0.0,
-  'Upgrades': [
-    'CartItemId': '<guid>', 'Condition': '<text>', 'Coupon': false, 'DiscountPercent': 0.0, 'DiscountAmount': 0.0, 'Bonus': false, 'BonusQuantity': 0.0 
-  ]
+  ""AppliedDiscount"": {{ ""TotalDiscountAmount"": <decimal>, ""TotalDiscountPercent"": <decimal> }},
+  ""Suggestions"": [
+    {{
+      ""Suggestion"": {{ ""CampaignId"": <int>, ""Description"": ""<text>"", ""CouponUse"": <bool>, ""CartItemSuggestions"": [
+          {{ ""CartItemId"": ""<guid>"", ""Quantity"": <decimal> }}
+      ] }},
+      ""Offer"": {{ ""CampaignId"": <int>, ""Description"": ""<text>"", ""CouponGiven"": <bool>, ""DiscountPercent"": <decimal>, ""DiscountAmount"": <decimal>, ""ItemOffers"": [
+             {{
+            ""CartItemId"": ""<guid>"", ""DiscountPercent"": <decimal>, ""DiscountAmount"": <decimal>, ""Bonus"": <bool>, ""        BonusQuantity"":    <int>
+            }}
+        ] }}
+    }}
+  ],
+  ""PotentialDiscountAfterSuggestion"": {{ ""TotalDiscountAmount"": <decimal>, ""TotalDiscountPercent"": <decimal> }}
 }}
+
 Do not include any extra text.";
 
             var response = await _kernel.InvokePromptAsync(prompt);

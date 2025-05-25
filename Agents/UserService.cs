@@ -17,7 +17,7 @@ namespace Agents
         {
             return await _context.UserProfiles.FirstOrDefaultAsync(u => u.Id == userId);
         }
-        public async Task<List<CampaignSession>> GetUserTransactionsAsync(string userId)
+        public async Task<List<Session>> GetUserTransactionsAsync(string userId)
         {
             return await _context.CampaignSessions.Where(t => t.UserId == userId).ToListAsync();
         }
@@ -29,7 +29,7 @@ namespace Agents
             var summary = $"User {user.Name} ({user.Email}) has made {transactions.Count} transactions.\n";
             foreach (var t in transactions)
             {
-                summary += $"- {t.Timestamp:yyyy-MM-dd}: Campaign {t.CampaignId}, Basket Value: ${t.BasketValue}\n";
+                summary += $"- {t.Timestamp:yyyy-MM-dd}: Campaigns {string.Join(",", t.TriggeredCampaigns)}, Basket Value: ${t.BasketValue}\n";
             }
             user.Summary = summary;
             await _context.SaveChangesAsync();
@@ -72,4 +72,4 @@ namespace Agents
             return true;
         }
     }
-} 
+}

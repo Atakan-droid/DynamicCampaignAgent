@@ -49,14 +49,14 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("sessions")]
-        public async Task<ActionResult<List<CampaignSession>>> GetCampaignSessions([FromQuery] string? userId = null)
+        public async Task<ActionResult<List<Session>>> GetCampaignSessions([FromQuery] string? userId = null)
         {
             if (!string.IsNullOrEmpty(userId))
             {
-                var userSessions = await _simulationService.GetCampaignSessionsByUserAsync(userId);
+                var userSessions = await _simulationService.GetSessionsByUserAsync(userId);
                 return Ok(userSessions);
             }
-            var allSessions = await _simulationService.GetCampaignSessionsAsync();
+            var allSessions = await _simulationService.GetSessionsAsync();
             return Ok(allSessions);
         }
     }

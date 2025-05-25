@@ -38,8 +38,6 @@ namespace Agents
             existing.Status = campaign.Status;
             existing.Rule = campaign.Rule;
             existing.Effect = campaign.Effect;
-            existing.TotalBudget = campaign.TotalBudget;
-            existing.MaxBudgetPerUser = campaign.MaxBudgetPerUser;
             existing.CampaignTarget = campaign.CampaignTarget;
             await _context.SaveChangesAsync();
             return existing;

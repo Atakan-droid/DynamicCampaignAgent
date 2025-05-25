@@ -9,5 +9,6 @@ namespace Data
         public decimal TotalSpent { get; set; }
         public int PurchaseCount { get; set; }
         public DateTime? LastPurchase { get; set; }
+        public int CouponCount { get; set; }
     }
-} 
+}

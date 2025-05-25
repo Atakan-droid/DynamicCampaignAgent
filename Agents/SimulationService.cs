@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using Agents.Models;
 
 namespace Agents
 {
@@ -14,35 +15,38 @@ namespace Agents
         {
             _context = context;
         }
-        public async Task RecordCampaignSessionAsync(string userId, int campaignId, decimal basketValue)
+        public async Task RecordSessionAsync(string userId, Guid sessionId, decimal basketValue, OfferAgentResult result)
         {
-            var session = new CampaignSession
+            var session = new Session
             {
                 UserId = userId,
-                CampaignId = campaignId,
+                SessionId = sessionId,
                 BasketValue = basketValue,
-                Timestamp = DateTime.UtcNow
+                Timestamp = DateTime.UtcNow,
+                TriggeredCampaigns = result?.Offers.Select(o => o.CampaignId).Distinct().ToList() ?? [],
+                Result = result != null ? System.Text.Json.JsonSerializer.Serialize(result) : null
             };
+
             _context.CampaignSessions.Add(session);
 
-            // Update user profile stats
             var user = await _context.UserProfiles.FirstOrDefaultAsync(u => u.Id == userId);
             if (user != null)
             {
                 user.TotalSpent += basketValue;
                 user.PurchaseCount += 1;
+                user.CouponCount += result?.Offers.Count(o => o.CouponGiven) ?? 0;
                 user.LastPurchase = session.Timestamp;
             }
 
             await _context.SaveChangesAsync();
         }
-        public async Task<List<CampaignSession>> GetCampaignSessionsAsync()
+        public async Task<List<Session>> GetSessionsAsync()
         {
             return await _context.CampaignSessions.ToListAsync();
         }
-        public async Task<List<CampaignSession>> GetCampaignSessionsByUserAsync(string userId)
+        public async Task<List<Session>> GetSessionsByUserAsync(string userId)
         {
             return await _context.CampaignSessions.Where(s => s.UserId == userId).ToListAsync();
         }
     }
-} 
+}

@@ -7,7 +7,7 @@ namespace Agents
     public interface IUserService
     {
         Task<UserProfile?> GetUserProfileAsync(string userId);
-        Task<List<CampaignSession>> GetUserTransactionsAsync(string userId);
+        Task<List<Session>> GetUserTransactionsAsync(string userId);
         Task UpdateUserProfileSummaryAsync(string userId);
         Task<List<UserProfile>> GetAllUserProfilesAsync();
         Task<UserProfile?> AddUserAsync(UserProfile user);
