@@ -2,7 +2,7 @@ using Data;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Agents
+namespace Services
 {
     public interface ICampaignService
     {

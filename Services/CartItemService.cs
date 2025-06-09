@@ -1,8 +1,7 @@
+using Data;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
-namespace Data
+namespace Services
 {
     public class CartItemService : ICartItemService
     {

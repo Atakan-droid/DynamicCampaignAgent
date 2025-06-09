@@ -1,5 +1,6 @@
+using Data;
 using System.Collections.Generic;
-namespace Data
+namespace Services
 {
     public interface ICartItemService
     {

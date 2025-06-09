@@ -2,7 +2,7 @@ using Data;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-namespace Agents
+namespace Services
 {
     public interface IUserService
     {

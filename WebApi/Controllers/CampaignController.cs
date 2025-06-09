@@ -1,23 +1,16 @@
 using Microsoft.AspNetCore.Mvc;
-using Agents;
+using Services;
 using Data;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Agents;
 
 namespace WebApi.Controllers
 {
     [ApiController]
     [Route("api/campaign")]
-    public class CampaignController : ControllerBase
+    public class CampaignController(ICampaignService _campaignService, ISessionTransactionService _sessionTransactionService) : ControllerBase
     {
-        private readonly ICampaignService _campaignService;
-        private readonly ISimulationService _simulationService;
-        public CampaignController(ICampaignService campaignService, ISimulationService simulationService)
-        {
-            _campaignService = campaignService;
-            _simulationService = simulationService;
-        }
-
         [HttpGet]
         public async Task<ActionResult<List<Campaign>>> GetCampaigns()
         {
@@ -53,11 +46,11 @@ namespace WebApi.Controllers
         {
             if (!string.IsNullOrEmpty(userId))
             {
-                var userSessions = await _simulationService.GetSessionsByUserAsync(userId);
+                var userSessions = await _sessionTransactionService.GetSessionsByUserAsync(userId);
                 return Ok(userSessions);
             }
-            var allSessions = await _simulationService.GetSessionsAsync();
+            var allSessions = await _sessionTransactionService.GetSessionsAsync();
             return Ok(allSessions);
         }
     }
-} 
+}

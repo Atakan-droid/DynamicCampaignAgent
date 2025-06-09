@@ -3,6 +3,8 @@ using Agents;
 using Agents.UserAgent;
 using Data;
 using Microsoft.AspNetCore.Mvc;
+using Agents.Models;
+using Services;
 
 namespace WebApi.Controllers
 {
@@ -18,12 +20,22 @@ namespace WebApi.Controllers
             _userService = userService;
         }
 
-        [HttpPost("profile")]
-        public async Task<IActionResult> GetProfile([FromBody] ProfileRequest request)
+        [HttpPost("{userId}/profile")]
+        public async Task<IActionResult> GetProfile(string userId)
         {
-            var result = await _userAgent.RunAsync(request.UserId);
+            var result = await _userService.GetUserProfileAsync(userId);
             return Ok(result);
         }
+
+        [HttpPost("{userId}/profile/summary")]
+        public async Task<IActionResult> GetProfileSummary(string userId)
+        {
+            var result = await _userAgent.RunAsync(userId);
+            if (result == null)
+                return NotFound();
+            return Ok(result);
+        }
+
         [HttpGet("users")]
         public async Task<IActionResult> ListUsers()
         {

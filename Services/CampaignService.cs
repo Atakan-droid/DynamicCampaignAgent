@@ -1,10 +1,7 @@
 using Data;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Data.Enumerations;
 
-namespace Agents
+namespace Services
 {
     public class CampaignService : ICampaignService
     {
@@ -15,21 +12,18 @@ namespace Agents
         }
         public async Task<List<Campaign>> GetActiveCampaignsAsync()
         {
-            return await _context.Campaigns.Where(c => c.Status == CampaignStatusTypes.Active).ToListAsync();
+            return await _context.Campaigns.Where(c => c.Status == Data.Enumerations.CampaignStatusTypes.Active).ToListAsync();
         }
-
         public async Task<List<Campaign>> GetCampaignsAsync()
         {
             return await _context.Campaigns.ToListAsync();
         }
-
         public async Task<Campaign?> AddCampaignAsync(Campaign campaign)
         {
             _context.Campaigns.Add(campaign);
             await _context.SaveChangesAsync();
             return campaign;
         }
-
         public async Task<Campaign?> UpdateCampaignAsync(Campaign campaign)
         {
             var existing = await _context.Campaigns.FirstOrDefaultAsync(c => c.Id == campaign.Id);
@@ -42,10 +36,9 @@ namespace Agents
             await _context.SaveChangesAsync();
             return existing;
         }
-
         public async Task<bool> DeleteCampaignAsync(int id)
         {
-            var campaign = await _context.Campaigns.FindAsync(id);
+            var campaign = await _context.Campaigns.FirstOrDefaultAsync(c => c.Id == id);
             if (campaign == null) return false;
             _context.Campaigns.Remove(campaign);
             await _context.SaveChangesAsync();

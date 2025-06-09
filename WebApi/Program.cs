@@ -4,6 +4,7 @@ using Agents.UserAgent;
 using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.SemanticKernel;
+using Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +15,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Register services
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICampaignService, CampaignService>();
-builder.Services.AddScoped<ISimulationService, SimulationService>();
+builder.Services.AddScoped<ISessionTransactionService, SessionTransactionService>();
 builder.Services.AddScoped<ICartItemService, CartItemService>();
 
 // Register Semantic Kernel with OpenAI

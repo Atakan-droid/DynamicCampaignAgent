@@ -32,9 +32,4 @@ namespace WebApi.Controllers
             return Ok(result);
         }
     }
-
-    public class ProfileRequest
-    {
-        public string UserId { get; set; } = string.Empty;
-    }
 }
