@@ -1,6 +1,5 @@
-using Microsoft.EntityFrameworkCore;
-using System.Text.Json;
 using Data.Enumerations;
+using Microsoft.EntityFrameworkCore;
 
 namespace Data
 {
@@ -8,10 +7,10 @@ namespace Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-        public DbSet<UserProfile> UserProfiles => Set<UserProfile>();
-        public DbSet<Campaign> Campaigns => Set<Campaign>();
-        public DbSet<Session> CampaignSessions => Set<Session>();
-        public DbSet<CartItem> CartItems => Set<CartItem>();
+        public virtual DbSet<UserProfile> UserProfiles { get; set; }
+        public virtual DbSet<Campaign> Campaigns { get; set; }
+        public virtual DbSet<Session> CampaignSessions { get; set; }
+        public virtual DbSet<CartItem> CartItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

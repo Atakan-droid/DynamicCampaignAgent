@@ -1,9 +1,6 @@
 using Agents.CampaignAgent;
-using Agents.UserAgent;
-using Microsoft.AspNetCore.Mvc;
-using Agents;
-using Data;
 using Agents.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
@@ -31,10 +28,5 @@ namespace WebApi.Controllers
             var result = await _campaignAgent.CheckCampaignsAsync(request);
             return Ok(result);
         }
-    }
-
-    public class ProfileRequest
-    {
-        public string UserId { get; set; } = string.Empty;
     }
 }

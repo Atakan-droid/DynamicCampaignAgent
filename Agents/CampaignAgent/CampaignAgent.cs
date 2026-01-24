@@ -1,34 +1,18 @@
-﻿using Microsoft.SemanticKernel;
+﻿using Agents.Models;
 using Data.Enumerations;
-using Data;
-using Agents.Models;
+using Microsoft.SemanticKernel;
+using Services;
 using System.Text.Json;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Agents.CampaignAgent
 {
-    public class CampaignAgent
+    public class CampaignAgent(
+        Kernel _kernel,
+        IUserService _userService,
+        ICampaignService _campaignService,
+        ISessionTransactionService _sessionTransactionService,
+        ICartItemService _cartItemService)
     {
-        private readonly Kernel _kernel;
-        private readonly IUserService _userService;
-        private readonly ICampaignService _campaignService;
-        private readonly ISimulationService _simulationService;
-        private readonly ICartItemService _cartItemService;
-
-        public CampaignAgent(
-            Kernel kernel,
-            IUserService userService,
-            ICampaignService campaignService,
-            ISimulationService simulationService,
-            ICartItemService cartItemService)
-        {
-            _kernel = kernel;
-            _userService = userService;
-            _campaignService = campaignService;
-            _simulationService = simulationService;
-            _cartItemService = cartItemService;
-        }
-
         public async Task<OfferAgentResult> OfferAsync(OfferRequest request)
         {
             await _userService.UpdateUserProfileSummaryAsync(request.UserId);
@@ -102,7 +86,7 @@ Do not include any extra text.";
 
             if (result.Offers.Any())
             {
-                await _simulationService.RecordSessionAsync(request.UserId, Guid.NewGuid(), basketTotal, result);
+                await _sessionTransactionService.RecordSessionAsync(request.UserId, Guid.NewGuid(), basketTotal, result);
             }
 
             return result;

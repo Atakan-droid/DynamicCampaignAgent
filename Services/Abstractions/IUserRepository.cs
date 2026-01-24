@@ -1,18 +1,16 @@
 using Data;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 
-namespace Agents
+namespace Services.Abstractions
 {
-    public interface IUserService
+    public interface IUserRepository
     {
         Task<UserProfile?> GetUserProfileAsync(string userId);
         Task<List<Session>> GetUserTransactionsAsync(string userId);
-        Task UpdateUserProfileSummaryAsync(string userId);
         Task<List<UserProfile>> GetAllUserProfilesAsync();
-        Task<UserProfile?> AddUserAsync(UserProfile user);
+        Task<UserProfile> AddUserAsync(UserProfile user);
         Task<List<UserProfile>> AddUsersAsync(List<UserProfile> users);
         Task<UserProfile?> UpdateUserAsync(UserProfile user);
         Task<bool> DeleteUserAsync(string userId);
+        Task SaveChangesAsync();
     }
-} 
+}

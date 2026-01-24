@@ -3,7 +3,7 @@ using Data;
 
 namespace Agents
 {
-    public interface ISimulationService
+    public interface ISessionTransactionService
     {
         Task RecordSessionAsync(string userId, Guid sessionId, decimal basketValue, OfferAgentResult result);
         Task<List<Session>> GetSessionsAsync();

@@ -1,20 +1,11 @@
-using Data;
-using System;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
 using Agents.Models;
+using Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Agents
 {
-    public class SimulationService : ISimulationService
+    public sealed class SessionTransactionService(ApplicationDbContext _context) : ISessionTransactionService
     {
-        private readonly ApplicationDbContext _context;
-        public SimulationService(ApplicationDbContext context)
-        {
-            _context = context;
-        }
         public async Task RecordSessionAsync(string userId, Guid sessionId, decimal basketValue, OfferAgentResult result)
         {
             var session = new Session

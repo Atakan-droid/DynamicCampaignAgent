@@ -2,16 +2,18 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Data\Data.csproj" />
+		<ProjectReference Include="..\Services\Services.csproj" />
 		
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Microsoft.SemanticKernel" Version="1.51.0" />
-	  <PackageReference Include="Microsoft.SemanticKernel.Connectors.OpenAI" Version="1.51.0" />
+	  <PackageReference Include="Azure.Identity" Version="1.17.1" />
+	  <PackageReference Include="Microsoft.SemanticKernel" Version="1.70.0" />
+	  <PackageReference Include="Microsoft.SemanticKernel.Connectors.OpenAI" Version="1.70.0" />
 	</ItemGroup>
 
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFramework>net10.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<LangVersion>latest</LangVersion>

@@ -1,6 +1,4 @@
-﻿using Data;
-
-namespace Agents.Models
+﻿namespace Agents.Models
 {
     public class OfferAgentResult
     {

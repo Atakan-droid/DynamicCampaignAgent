@@ -1,8 +1,6 @@
 using Data;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
-namespace Agents
+namespace Services
 {
     public interface ICampaignService
     {
@@ -12,4 +10,4 @@ namespace Agents
         Task<Campaign?> UpdateCampaignAsync(Campaign campaign);
         Task<bool> DeleteCampaignAsync(int id);
     }
-} 
+}
