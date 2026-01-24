@@ -1,10 +1,8 @@
-﻿using Microsoft.SemanticKernel;
+﻿using Agents.Models;
 using Data.Enumerations;
-using Data;
-using Agents.Models;
-using System.Text.Json;
-using static System.Net.Mime.MediaTypeNames;
+using Microsoft.SemanticKernel;
 using Services;
+using System.Text.Json;
 
 namespace Agents.CampaignAgent
 {

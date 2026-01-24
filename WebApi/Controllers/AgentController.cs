@@ -1,9 +1,6 @@
 using Agents.CampaignAgent;
-using Agents.UserAgent;
-using Microsoft.AspNetCore.Mvc;
-using Agents;
-using Data;
 using Agents.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {

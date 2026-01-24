@@ -1,9 +1,7 @@
-using Microsoft.SemanticKernel;
-using System.Threading.Tasks;
-using System.Linq;
-using System.Text.Json;
 using Agents.Models;
+using Microsoft.SemanticKernel;
 using Services;
+using System.Text.Json;
 
 namespace Agents.UserAgent
 {

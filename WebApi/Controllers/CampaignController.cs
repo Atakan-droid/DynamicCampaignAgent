@@ -1,9 +1,7 @@
+using Agents;
+using Data;
 using Microsoft.AspNetCore.Mvc;
 using Services;
-using Data;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Agents;
 
 namespace WebApi.Controllers
 {

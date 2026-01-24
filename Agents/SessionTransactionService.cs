@@ -40,4 +40,4 @@ namespace Agents
             return await _context.CampaignSessions.Where(s => s.UserId == userId).ToListAsync();
         }
     }
-} 
+}

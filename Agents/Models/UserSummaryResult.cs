@@ -10,4 +10,4 @@ namespace Agents.Models
         public string? LastPurchase { get; set; }
         public int CouponCount { get; set; }
     }
-} 
+}

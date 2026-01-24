@@ -1,6 +1,4 @@
 using Data;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Services
 {
@@ -12,4 +10,4 @@ namespace Services
         Task<Campaign?> UpdateCampaignAsync(Campaign campaign);
         Task<bool> DeleteCampaignAsync(int id);
     }
-} 
+}

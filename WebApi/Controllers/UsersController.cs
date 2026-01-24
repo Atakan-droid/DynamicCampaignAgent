@@ -1,9 +1,6 @@
-﻿using Agents.CampaignAgent;
-using Agents;
-using Agents.UserAgent;
+﻿using Agents.UserAgent;
 using Data;
 using Microsoft.AspNetCore.Mvc;
-using Agents.Models;
 using Services;
 
 namespace WebApi.Controllers
