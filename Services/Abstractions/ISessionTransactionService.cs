@@ -1,7 +1,7 @@
-using Agents.Models;
-using Data;
+using Core.Models;
+using Data.Entities;
 
-namespace Agents
+namespace Services.Abstractions
 {
     public interface ISessionTransactionService
     {

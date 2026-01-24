@@ -1,4 +1,4 @@
-using Data;
+using Data.Entities;
 
 namespace Services.Abstractions
 {

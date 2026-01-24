@@ -1,10 +1,10 @@
-﻿using Agents.Models;
+﻿using Core.Models;
 using Data.Enumerations;
 using Microsoft.SemanticKernel;
-using Services;
+using Services.Abstractions;
 using System.Text.Json;
 
-namespace Agents.CampaignAgent
+namespace Agents.CampaignAgents
 {
     public class CampaignAgent(
         Kernel _kernel,

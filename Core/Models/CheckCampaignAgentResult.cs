@@ -1,4 +1,4 @@
-﻿namespace Agents.Models
+﻿namespace Core.Models
 {
     public class CheckCampaignAgentResult
     {

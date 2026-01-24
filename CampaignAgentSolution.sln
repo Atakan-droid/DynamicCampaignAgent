@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Servic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{53AC9925-4239-4227-B747-7BF7C51EA4EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{D8D2FB6C-B8C4-4A58-B185-44529C3C700D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,8 +71,23 @@ Global
 		{53AC9925-4239-4227-B747-7BF7C51EA4EA}.Release|x64.Build.0 = Release|Any CPU
 		{53AC9925-4239-4227-B747-7BF7C51EA4EA}.Release|x86.ActiveCfg = Release|Any CPU
 		{53AC9925-4239-4227-B747-7BF7C51EA4EA}.Release|x86.Build.0 = Release|Any CPU
+		{D8D2FB6C-B8C4-4A58-B185-44529C3C700D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8D2FB6C-B8C4-4A58-B185-44529C3C700D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8D2FB6C-B8C4-4A58-B185-44529C3C700D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D8D2FB6C-B8C4-4A58-B185-44529C3C700D}.Debug|x64.Build.0 = Debug|Any CPU
+		{D8D2FB6C-B8C4-4A58-B185-44529C3C700D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D8D2FB6C-B8C4-4A58-B185-44529C3C700D}.Debug|x86.Build.0 = Debug|Any CPU
+		{D8D2FB6C-B8C4-4A58-B185-44529C3C700D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8D2FB6C-B8C4-4A58-B185-44529C3C700D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8D2FB6C-B8C4-4A58-B185-44529C3C700D}.Release|x64.ActiveCfg = Release|Any CPU
+		{D8D2FB6C-B8C4-4A58-B185-44529C3C700D}.Release|x64.Build.0 = Release|Any CPU
+		{D8D2FB6C-B8C4-4A58-B185-44529C3C700D}.Release|x86.ActiveCfg = Release|Any CPU
+		{D8D2FB6C-B8C4-4A58-B185-44529C3C700D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4A6DF0D5-339A-456C-9A9D-C2E6ACC14AA8}
 	EndGlobalSection
 EndGlobal

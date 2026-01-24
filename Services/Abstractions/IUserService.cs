@@ -1,6 +1,6 @@
-using Data;
+using Data.Entities;
 
-namespace Services
+namespace Services.Abstractions
 {
     public interface IUserService
     {

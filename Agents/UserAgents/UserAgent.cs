@@ -1,9 +1,9 @@
-using Agents.Models;
+using Core.Models;
 using Microsoft.SemanticKernel;
-using Services;
+using Services.Abstractions;
 using System.Text.Json;
 
-namespace Agents.UserAgent
+namespace Agents.UserAgents
 {
     public class UserAgent(Kernel _kernel, IUserService _userService)
     {

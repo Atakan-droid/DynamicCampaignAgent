@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Data
+namespace Data.Entities
 {
     public class CartItem
     {

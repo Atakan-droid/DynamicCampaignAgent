@@ -1,8 +1,10 @@
-using Agents.Models;
-using Data;
+using Core.Models;
+using Data.DbContexts;
+using Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using Services.Abstractions;
 
-namespace Agents
+namespace Services
 {
     public sealed class SessionTransactionService(ApplicationDbContext _context) : ISessionTransactionService
     {
