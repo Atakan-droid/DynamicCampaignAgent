@@ -1,5 +1,5 @@
-using Agents.CampaignAgent;
-using Agents.Models;
+using Agents.CampaignAgents;
+using Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers

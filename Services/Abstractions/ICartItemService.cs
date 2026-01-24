@@ -1,5 +1,5 @@
-using Data;
-namespace Services
+using Data.Entities;
+namespace Services.Abstractions
 {
     public interface ICartItemService
     {

@@ -1,5 +1,7 @@
-using Data;
+using Data.DbContexts;
+using Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using Services.Abstractions;
 
 namespace Services
 {

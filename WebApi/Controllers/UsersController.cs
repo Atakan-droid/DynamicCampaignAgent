@@ -1,7 +1,7 @@
-﻿using Agents.UserAgent;
-using Data;
+﻿using Agents.UserAgents;
+using Data.Entities;
 using Microsoft.AspNetCore.Mvc;
-using Services;
+using Services.Abstractions;
 
 namespace WebApi.Controllers
 {

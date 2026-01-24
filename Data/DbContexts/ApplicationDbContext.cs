@@ -1,7 +1,8 @@
+using Data.Entities;
 using Data.Enumerations;
 using Microsoft.EntityFrameworkCore;
 
-namespace Data
+namespace Data.DbContexts
 {
     public class ApplicationDbContext : DbContext
     {

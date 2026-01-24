@@ -1,10 +1,11 @@
 using Agents;
-using Agents.CampaignAgent;
-using Agents.UserAgent;
-using Data;
+using Agents.CampaignAgents;
+using Agents.UserAgents;
+using Data.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.SemanticKernel;
 using Services;
+using Services.Abstractions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseInMemoryDatabase("DemoDb"));
 
 // Register services
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICampaignService, CampaignService>();
 builder.Services.AddScoped<ISessionTransactionService, SessionTransactionService>();
@@ -52,12 +54,6 @@ builder.Services.AddCors(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// TODO: Configure LangChain and OpenAI API key from environment
-// builder.Services.Configure<LangChainOptions>(options =>
-// {
-//     options.OpenAIApiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
-// });
-
 var app = builder.Build();
 
 // Ensure database is created and seeded
@@ -71,6 +67,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseDeveloperExceptionPage();
 }
 
 app.UseHttpsRedirection();

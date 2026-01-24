@@ -1,4 +1,4 @@
-using Data;
+using Data.Entities;
 using Services.Abstractions;
 
 namespace Services
