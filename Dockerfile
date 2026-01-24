@@ -1,29 +1,33 @@
-# Use the official .NET 8 SDK image for building the app
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+# Use the official .NET 10 SDK image for building the app
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
-# Copy solution and restore as distinct layers
-COPY DynamicCampaignAgent.sln ./
+# Copy solution and project files
+COPY CampaignAgentSolution.sln ./
 COPY WebApi/WebApi.csproj WebApi/
 COPY Agents/Agents.csproj Agents/
 COPY Data/Data.csproj Data/
-RUN dotnet restore
+COPY Services/Services.csproj Services/
+COPY Core/Core.csproj Core/
 
-# Copy everything else and build
+# Restore dependencies
+RUN dotnet restore CampaignAgentSolution.sln
+
+# Copy the remaining source code and publish
 COPY . .
 RUN dotnet publish WebApi/WebApi.csproj -c Release -o /app/publish /p:UseAppHost=false
 
 # Use the official ASP.NET runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 WORKDIR /app
 COPY --from=build /app/publish .
 
-# Expose port 80 and 443
+# Expose port 80
 EXPOSE 80
-EXPOSE 443
 
-# Set environment variables (optional)
+# Configure runtime environment
 ENV ASPNETCORE_URLS="http://+:8080"
+ENV DOTNET_RUNNING_IN_CONTAINER=true
 
 # Run the application
-ENTRYPOINT ["dotnet", "WebApi.dll"] 
+ENTRYPOINT ["dotnet", "WebApi.dll"]
